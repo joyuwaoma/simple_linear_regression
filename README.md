@@ -14,6 +14,7 @@ NumPy, Matplotlib, Pandas, Scikit-learn
 
 You will use a fuel consumption dataset, FuelConsumption.csv, which contains model-specific fuel consumption ratings and estimated carbon dioxide emissions for new light-duty vehicles for retail sale in Canada. Dataset source.
 
+```
 MODEL YEAR e.g. 2014
 MAKE e.g. VOLVO
 MODEL e.g. S60 AWD
@@ -27,6 +28,7 @@ FUEL CONSUMPTION in HWY (L/100 km) e.g. 9.5
 FUEL CONSUMPTION COMBINED (L/100 km) e.g. 11.5
 FUEL CONSUMPTION COMBINED MPG (MPG) e.g. 25
 CO2 EMISSIONS (g/km) e.g. 182
+```
 
 **The task will be to create a simple linear regression model from one of these features to predict CO2 emissions of unobserved cars based on that feature.**
 
