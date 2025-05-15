@@ -154,4 +154,31 @@ print("Mean squared error: %.2f" % mean_squared_error(y_test_, y_test))
 print("Root mean squared error: %.2f" % root_mean_squared_error(y_test_, y_test))
 print("R2-score: %.2f" % r2_score( y_test_, y_test) )
 ```
+4. Plot the regression model result over the test data instead of the training data. Visually evaluate whether the result is good.
+```
+plt.scatter(X_test, y_test,  color='blue')
+plt.plot(X_test, regressor.coef_ * X_test + regressor.intercept_, '-r')
+plt.xlabel("Engine size")
+plt.ylabel("Emission")
+```
+![7](https://github.com/joyuwaoma/simple_linear_regression/blob/main/7.png)
+
+5. Check the evaluation metrics if you train a regression model using the FUELCONSUMPTION_COMB feature. (Select the fuel consumption feature from the dataframe and split the data 80%/20% into training and testing sets)
+```
+X = cdf.FUELCONSUMPTION_COMB.to_numpy()
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+```
+6. Train a linear regression model using the training data created.
+```
+regressor = linear_model.LinearRegression()
+regressor.fit(X_train.reshape(-1, 1), y_train)
+```
+7. Use the model to make test predictions on the fuel consumption testing data.
+```
+y_test_ = regressor.predict(X_test.reshape(-1,1))
+```
+8. Calculate and print the Mean Squared Error of the test predictions.
+```
+print("Mean squared error: %.2f" % mean_squared_error(y_test_, y_test))
+```
 
