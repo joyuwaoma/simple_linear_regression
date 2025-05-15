@@ -34,13 +34,29 @@ CO2 EMISSIONS (g/km) e.g. 182
 
 ## Explore the data:
 
-After exploring the data with 
+First, consider a statistical summary of the data.
 ```
 df.describe()
 ```
+![1](https://github.com/joyuwaoma/simple_linear_regression/blob/main/1.png)
 
 Select a few features that might be indicative of CO2 emission to explore more. 
 ```
 cdf = df[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB','CO2EMISSIONS']]
 cdf.sample(9)
 ```
+![2](https://github.com/joyuwaoma/simple_linear_regression/blob/main/2a.png)
+
+## Visualize features:
+
+Consider the histograms for each of these features.
+```
+viz = cdf[['CYLINDERS','ENGINESIZE','FUELCONSUMPTION_COMB','CO2EMISSIONS']]
+viz.hist()
+plt.show()
+```
+![3](https://github.com/joyuwaoma/simple_linear_regression/blob/main/3.png)
+
+As you can see, most engines have 4, 6, or 8 cylinders, and engine sizes between 2 and 4 liters.
+As you might expect, combined fuel consumption and CO2 emissions have very similar distributions.
+
