@@ -14,7 +14,7 @@ NumPy, Matplotlib, Pandas, Scikit-learn
 
 You will use a fuel consumption dataset, FuelConsumption.csv, which contains model-specific fuel consumption ratings and estimated carbon dioxide emissions for new light-duty vehicles for retail sale in Canada. Dataset source.
 
-```
+```python
 MODEL YEAR e.g. 2014
 MAKE e.g. VOLVO
 MODEL e.g. S60 AWD
@@ -35,13 +35,13 @@ CO2 EMISSIONS (g/km) e.g. 182
 ## Explore the data:
 
 First, consider a statistical summary of the data.
-```
+```python
 df.describe()
 ```
 ![1](https://github.com/joyuwaoma/simple_linear_regression/blob/main/1.png)
 
 Select a few features that might be indicative of CO2 emission to explore more. 
-```
+```python
 cdf = df[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB','CO2EMISSIONS']]
 cdf.sample(9)
 ```
@@ -50,7 +50,7 @@ cdf.sample(9)
 ## Visualize features:
 
 Consider the histograms for each of these features.
-```
+```python
 viz = cdf[['CYLINDERS','ENGINESIZE','FUELCONSUMPTION_COMB','CO2EMISSIONS']]
 viz.hist()
 plt.show()
@@ -64,7 +64,7 @@ As you might expect, combined fuel consumption and CO2 emissions have very simil
 
 Display some scatter plots of these features against the CO2 emissions, to see how linear their relationships are.
 
-```
+```python
 plt.scatter(cdf.FUELCONSUMPTION_COMB, cdf.CO2EMISSIONS,  color='blue')
 plt.xlabel("FUELCONSUMPTION_COMB")
 plt.ylabel("Emission")
@@ -74,7 +74,7 @@ plt.show()
 This is an informative result. Three car groups each have a strong linear relationship between their combined fuel consumption and their CO2 emissions. Their intercepts are similar, while they noticeably differ in their slopes.
 
 
-```
+```python
 plt.scatter(cdf.ENGINESIZE, cdf.CO2EMISSIONS,  color='blue')
 plt.xlabel("Engine size")
 plt.ylabel("Emission")
@@ -86,7 +86,7 @@ Although the relationship between engine size and CO2 emission is quite linear, 
 
 ## Practice exercise:
 1. Plot CYLINDER against CO2 Emission, to see how linear their relationship is.
-```
+```python
 plt.scatter(cdf.CYLINDERS, cdf.CO2EMISSIONS, color='green')
 plt.xlabel("CYLINDERS")
 plt.ylabel("CO2 Emission")
@@ -95,7 +95,7 @@ plt.show()
 ![6](https://github.com/joyuwaoma/simple_linear_regression/blob/main/6.png)
 
 2. Extract the input feature and labels from the dataset, and Create train and test datasets
-```
+```python
 X = cdf.ENGINESIZE.to_numpy()
 y = cdf.CO2EMISSIONS.to_numpy()
 
@@ -106,7 +106,7 @@ X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_sta
 type(X_train), np.shape(X_train), np.shape(X_train)
 ```
 3. Build a simple linear regression model
-```
+```python
 from sklearn import linear_model
 
 # create a model object
@@ -122,7 +122,7 @@ print ('Coefficients: ', regressor.coef_[0]) # with simple linear regression the
 print ('Intercept: ',regressor.intercept_)
 ```
 Visualize model outputs
-```
+```python
 plt.scatter(X_train, y_train,  color='blue')
 plt.plot(X_train, regressor.coef_ * X_train + regressor.intercept_, '-r')
 plt.xlabel("Engine size")
@@ -143,7 +143,7 @@ There are different model evaluation metrics, let's use MSE here to calculate th
 
 * R-squared is not an error but rather a popular metric used to estimate the performance of your regression model. It represents how close the data points are to the fitted regression line. The higher the R-squared value, the better the model fits your data. The best possible score is 1.0 and it can be negative (because the model can be arbitrarily worse).
 
-```
+```python
 from sklearn.metrics import mean_absolute_error, mean_squared_error, root_mean_squared_error, r2_score
 
 # Use the predict method to make test predictions
@@ -155,7 +155,7 @@ print("Root mean squared error: %.2f" % root_mean_squared_error(y_test_, y_test)
 print("R2-score: %.2f" % r2_score( y_test_, y_test) )
 ```
 4. Plot the regression model result over the test data instead of the training data. Visually evaluate whether the result is good.
-```
+```python
 plt.scatter(X_test, y_test,  color='blue')
 plt.plot(X_test, regressor.coef_ * X_test + regressor.intercept_, '-r')
 plt.xlabel("Engine size")
@@ -164,21 +164,21 @@ plt.ylabel("Emission")
 ![7](https://github.com/joyuwaoma/simple_linear_regression/blob/main/7.png)
 
 5. Check the evaluation metrics if you train a regression model using the FUELCONSUMPTION_COMB feature. (Select the fuel consumption feature from the dataframe and split the data 80%/20% into training and testing sets)
-```
+```python
 X = cdf.FUELCONSUMPTION_COMB.to_numpy()
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
 ```
 6. Train a linear regression model using the training data created.
-```
+```python
 regressor = linear_model.LinearRegression()
 regressor.fit(X_train.reshape(-1, 1), y_train)
 ```
 7. Use the model to make test predictions on the fuel consumption testing data.
-```
+```python
 y_test_ = regressor.predict(X_test.reshape(-1,1))
 ```
 8. Calculate and print the Mean Squared Error of the test predictions.
-```
+```python
 print("Mean squared error: %.2f" % mean_squared_error(y_test_, y_test))
 ```
 
